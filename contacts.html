@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
+    <a class="skip-link" href="#main-content">
+        Перейти к содержимому
+    </a>
 
     <!-- ==================== ШАПКА ==================== -->
     <header class="site-header">
@@ -24,7 +27,7 @@
                         <a class="site-nav__link" href="catalog.html">Каталог</a>
                     </li>
                     <li class="site-nav__item">
-                        <a class="site-nav__link site-nav__link--active" href="contacts.html">
+                        <a class="site-nav__link site-nav__link--active" href="contacts.html" aria-current="page">
                             Контакты
                         </a>
                     </li>
@@ -43,7 +46,7 @@
     </header>
 
     <!-- ==================== ОСНОВНОЕ СОДЕРЖИМОЕ ==================== -->
-    <main>
+    <main id="main-content" tabindex="-1">
 
         <nav class="breadcrumbs" aria-label="Хлебные крошки">
             <a class="breadcrumbs__link" href="index.html">Главная</a>

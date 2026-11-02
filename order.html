@@ -10,6 +10,9 @@
     <script src="js/main.js" defer></script>
 </head>
 <body>
+    <a class="skip-link" href="#main-content">
+        Перейти к содержимому
+    </a>
 
     <!-- ==================== ШАПКА ==================== -->
     <header class="site-header">
@@ -25,7 +28,7 @@
                         <a class="site-nav__link" href="catalog.html">Туры</a>
                     </li>
                     <li class="site-nav__item">
-                        <a class="site-nav__link site-nav__link--active" href="order.html">
+                        <a class="site-nav__link site-nav__link--active" href="order.html" aria-current="page">
                             Заявка
                         </a>
                     </li>
@@ -38,7 +41,7 @@
     </header>
 
     <!-- ==================== ОСНОВНОЕ СОДЕРЖИМОЕ ==================== -->
-    <main>
+    <main id="main-content" tabindex="-1">
 
         <nav class="breadcrumbs" aria-label="Хлебные крошки">
             <a class="breadcrumbs__link" href="index.html">Главная</a>
@@ -88,13 +91,14 @@
                     <input
                         class="order-form__input"
                         id="order-phone"
+                        aria-describedby="order-phone-hint"
                         name="phone"
                         type="tel"
                         inputmode="tel"
                         placeholder="+7 (900) 000-00-00"
                         required
                     >
-                    <small class="order-form__hint">Формат: +7 (900) 000-00-00</small>
+                    <small class="order-form__hint" id="order-phone-hint">Формат: +7 (900) 000-00-00</small>
                 </div>
 
                 <div class="order-form__field">

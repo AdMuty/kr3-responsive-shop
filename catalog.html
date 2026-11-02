@@ -10,6 +10,9 @@
     <script src="js/main.js" defer></script>
 </head>
 <body>
+    <a class="skip-link" href="#main-content">
+        Перейти к содержимому
+    </a>
 
     <!-- ==================== ШАПКА ==================== -->
     <header class="site-header">
@@ -22,7 +25,7 @@
                         <a class="site-nav__link" href="index.html">Главная</a>
                     </li>
                     <li class="site-nav__item">
-                        <a class="site-nav__link site-nav__link--active" href="catalog.html">
+                        <a class="site-nav__link site-nav__link--active" href="catalog.html" aria-current="page">
                             Каталог
                         </a>
                     </li>
@@ -44,7 +47,7 @@
     </header>
 
     <!-- ==================== ОСНОВНОЕ СОДЕРЖИМОЕ ==================== -->
-    <main>
+    <main id="main-content" tabindex="-1">
 
         <nav class="breadcrumbs" aria-label="Хлебные крошки">
             <a class="breadcrumbs__link" href="index.html">Главная</a>

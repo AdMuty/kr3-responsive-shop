@@ -660,3 +660,51 @@ a:focus-visible {
     font-weight: 700;
 }
 
+/* Ссылка пропуска навигации */
+.skip-link {
+    position: fixed;
+    top: 8px;
+    left: 8px;
+    z-index: 1000;
+    padding: 12px 16px;
+    color: #ffffff;
+    background-color: #003f86;
+    border-radius: 6px;
+    transform: translateY(calc(-100% - 16px));
+}
+
+.skip-link:focus {
+    transform: translateY(0);
+    outline: 3px solid #222222;
+    outline-offset: 3px;
+}
+
+/* Видимый фокус при управлении с клавиатуры */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+.button:focus-visible,
+.site-nav__link:focus-visible,
+.order-form__input:focus-visible,
+.order-form__select:focus-visible,
+.order-form__textarea:focus-visible,
+[tabindex="0"]:focus-visible {
+    outline: 3px solid #222222;
+    outline-offset: 3px;
+}
+
+/* Фокус кнопки возврата наверх */
+.scroll-top:focus-visible {
+    outline: 3px solid #222222;
+    outline-offset: 3px;
+}
+
+/* Текстовое объяснение ошибки рядом с полем */
+.form-error {
+    margin: var(--space-xs) 0 0;
+    color: var(--color-danger);
+    font-size: 14px;
+}
+
