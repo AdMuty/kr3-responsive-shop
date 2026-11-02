@@ -31,26 +31,55 @@ const orderForm = document.getElementById('order-form');
 
 if (orderForm) {
     const successMessage = document.getElementById('success-message');
+    const fields = Array.from(orderForm.elements).filter((field) => field.willValidate && field.id);
+
+    function clearError(field) {
+        const errorId = `${field.id}-error`;
+        document.getElementById(errorId)?.remove();
+        field.removeAttribute('aria-invalid');
+        const descriptions = (field.getAttribute('aria-describedby') || '')
+            .split(/\s+/).filter((id) => id && id !== errorId);
+        if (descriptions.length) {
+            field.setAttribute('aria-describedby', descriptions.join(' '));
+        } else {
+            field.removeAttribute('aria-describedby');
+        }
+    }
+
+    function updateError(field) {
+        clearError(field);
+        if (field.validity.valid) return;
+
+        const error = document.createElement('p');
+        error.id = `${field.id}-error`;
+        error.className = 'form-error';
+        error.textContent = field.validationMessage;
+        field.closest('.order-form__field').append(error);
+        field.setAttribute('aria-invalid', 'true');
+        const hint = field.getAttribute('aria-describedby');
+        field.setAttribute('aria-describedby', [hint, error.id].filter(Boolean).join(' '));
+    }
+
+    // Повторная проверка после исправления поля, в котором уже обнаружена ошибка.
+    function recheckField(event) {
+        const field = event.target;
+        if (fields.includes(field) && field.getAttribute('aria-invalid') === 'true') {
+            updateError(field);
+        }
+        if (successMessage) successMessage.hidden = true;
+    }
+
+    orderForm.addEventListener('input', recheckField);
+    orderForm.addEventListener('change', recheckField);
+    orderForm.addEventListener('reset', () => fields.forEach(clearError));
 
     orderForm.addEventListener('submit', (event) => {
         event.preventDefault();
-
-        const formElements = Array.from(orderForm.elements);
-
-        formElements.forEach((element) => {
-            if (element.willValidate) {
-                element.removeAttribute('aria-invalid');
-            }
-        });
-
-        if (!orderForm.checkValidity()) {
-            formElements.forEach((element) => {
-                if (element.willValidate && !element.checkValidity()) {
-                    element.setAttribute('aria-invalid', 'true');
-                }
-            });
-
-            orderForm.reportValidity();
+        if (successMessage) successMessage.hidden = true;
+        fields.forEach(updateError);
+        const firstInvalid = fields.find((field) => !field.validity.valid);
+        if (firstInvalid) {
+            firstInvalid.focus();
             return;
         }
 
@@ -122,6 +151,6 @@ phoneInputs.forEach((input) => {
         const pasted = (event.clipboardData || window.clipboardData).getData('text');
         const digits = pasted.replace(/\D/g, '');
         input.value = digits;
-        input.dispatchEvent(new Event('input'));
+        input.dispatchEvent(new Event('input', { bubbles: true }));
     });
 });
