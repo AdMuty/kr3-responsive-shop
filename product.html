@@ -48,11 +48,35 @@
 
             <!-- Одно фото -->
             <div class="product-detail__gallery">
-                <img
-                    class="product-detail__image"
-                    src="images/travel.jpg"
-                    alt="Уехать за границу"
-                >
+                <picture>
+                    <!-- Набор изображений для телефона -->
+                    <source
+                        media="(max-width: 767px)"
+                        srcset="
+                            images/travel-480.jpg 480w,
+                            images/travel-960.jpg 960w
+                        "
+                        sizes="calc(100vw - 32px)"
+                    >
+
+                    <!-- Основное изображение и набор для больших экранов -->
+                    <img
+                        class="product-detail__image"
+                        src="images/travel.jpg"
+                        srcset="
+                            images/travel-960.jpg 960w,
+                            images/travel.jpg 2400w
+                        "
+                        sizes="
+                            (min-width: 1100px) 522px,
+                            (min-width: 768px) calc((100vw - 56px) / 2),
+                            calc(100vw - 32px)
+                        "
+                        width="2400"
+                        height="1350"
+                        alt="Уехать за границу"
+                    >
+                </picture>
             </div>
 
             <!-- Информация -->
