@@ -19,7 +19,12 @@
         <div class="site-header__inner">
             <a class="site-header__logo" href="index.html">TURIST bezgranits</a>
 
-            <nav class="site-nav" aria-label="Основная навигация">
+            <button class="button button--secondary menu-toggle" type="button"
+                aria-controls="site-navigation" aria-expanded="true" hidden>
+                Меню
+            </button>
+
+            <nav class="site-nav" id="site-navigation" aria-label="Основная навигация">
                 <ul class="site-nav__list">
                     <li class="site-nav__item">
                         <a class="site-nav__link" href="index.html">Главная</a>
@@ -54,11 +59,16 @@
             <span class="breadcrumbs__current">Каталог</span>
         </nav>
 
-        <section class="catalog-layout">
+        <div class="section">
+            <h1 class="section__title">Каталог туров</h1>
+        </div>
 
+        <section class="catalog-layout">
             <aside class="catalog-filters">
                 <h2 class="catalog-filters__title">Фильтры</h2>
 
+                <details class="filters-disclosure" open>
+                    <summary class="filters-toggle">Показать фильтры</summary>
                 <form class="filters-form" action="#" method="get">
 
                     <fieldset class="filters-form__group">
@@ -107,6 +117,7 @@
                     <button class="button button--primary" type="submit">Применить</button>
 
                 </form>
+                </details>
             </aside>
 
             <section class="catalog-products">
