@@ -19,7 +19,21 @@
         <div class="site-header__inner">
             <a class="site-header__logo" href="index.html">TURIST bezgranits</a>
 
-            <nav class="site-nav" aria-label="Основная навигация">
+            <button
+                class="button button--secondary menu-toggle"
+                type="button"
+                aria-controls="site-navigation"
+                aria-expanded="true"
+                hidden
+            >
+                Меню
+            </button>
+
+            <nav
+                class="site-nav"
+                id="site-navigation"
+                aria-label="Основная навигация"
+            >
                 <ul class="site-nav__list">
                     <li class="site-nav__item">
                         <a

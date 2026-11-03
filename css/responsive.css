@@ -1,4 +1,16 @@
 /* Адаптивные стили для КР3. Подход Mobile First. */
+.menu-toggle[hidden],
+.site-nav[hidden] {
+    display: none;
+}
+
+.menu-toggle {
+    display: block;
+    min-height: 44px;
+    max-width: 100%;
+    margin-top: 12px;
+}
+
 /* Базовые правила для небольших экранов */
 img {
     max-width: 100%;
@@ -239,5 +251,64 @@ img {
 @media (min-width: 768px) {
     .map-frame {
         height: 400px;
+    }
+}
+
+/* Фильтры доступны и без JavaScript через нативный details. */
+.filters-toggle {
+    min-height: 44px;
+    padding: 12px;
+    color: var(--color-primary-dark);
+    cursor: pointer;
+    font-weight: 700;
+}
+.filters-toggle:focus-visible {
+    outline: 3px solid #222222;
+    outline-offset: 3px;
+}
+.filters-disclosure[open] .filters-form {
+    margin-top: 16px;
+}
+@media (min-width: 1024px) {
+    .filters-disclosure--enhanced > .filters-toggle {
+        display: none;
+    }
+}
+
+/* На телефоне каждая строка таблицы становится карточкой. */
+@media (max-width: 767px) {
+    .table-wrapper .product-table {
+        display: block;
+        min-width: 0;
+    }
+    .product-table caption {
+        display: block;
+        padding: 8px 0;
+    }
+    .product-table thead {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+        white-space: nowrap;
+    }
+    .product-table tbody {
+        display: grid;
+        gap: 12px;
+    }
+    .product-table tbody tr {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+    }
+    .product-table tbody th,
+    .product-table tbody td {
+        display: block;
+        padding: 12px 16px;
+        border: 0;
+        overflow-wrap: anywhere;
     }
 }

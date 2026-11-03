@@ -1,3 +1,50 @@
+// ==================== МОБИЛЬНАЯ НАВИГАЦИЯ ====================
+const menuToggle = document.querySelector('.menu-toggle');
+const siteNavigation = document.getElementById('site-navigation');
+
+if (menuToggle && siteNavigation) {
+    const desktopMenu = window.matchMedia('(min-width: 768px)');
+
+    function setMenuOpen(open, returnFocus = false) {
+        siteNavigation.hidden = !open;
+        menuToggle.setAttribute('aria-expanded', String(open));
+        menuToggle.textContent = open ? 'Закрыть меню' : 'Меню';
+        if (returnFocus) menuToggle.focus();
+    }
+
+    function syncMenuLayout() {
+        const focusInMenu = siteNavigation.contains(document.activeElement);
+        const focusOnToggle = document.activeElement === menuToggle;
+        menuToggle.hidden = desktopMenu.matches;
+        setMenuOpen(desktopMenu.matches);
+        if (!desktopMenu.matches && focusInMenu) menuToggle.focus();
+        if (desktopMenu.matches && focusOnToggle) {
+            siteNavigation.querySelector('a')?.focus();
+        }
+    }
+
+    menuToggle.addEventListener('click', () => {
+        if (!desktopMenu.matches) setMenuOpen(siteNavigation.hidden);
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && !desktopMenu.matches && !siteNavigation.hidden &&
+            (siteNavigation.contains(document.activeElement) || document.activeElement === menuToggle)) {
+            event.preventDefault();
+            setMenuOpen(false, true);
+        }
+    });
+
+    siteNavigation.addEventListener('click', (event) => {
+        if (!desktopMenu.matches && event.target.closest('a')) {
+            setMenuOpen(false, true);
+        }
+    });
+
+    desktopMenu.addEventListener('change', syncMenuLayout);
+    syncMenuLayout();
+}
+
 // ==================== МОДАЛЬНОЕ ОКНО ЗАЯВКИ ====================
 // Работает только на страницах, где есть #order-dialog
 // (index.html, order.html)
@@ -154,3 +201,32 @@ phoneInputs.forEach((input) => {
         input.dispatchEvent(new Event('input', { bubbles: true }));
     });
 });
+
+// Сворачиваемые фильтры: на компьютере всегда раскрыты.
+const filtersDisclosure = document.querySelector('.filters-disclosure');
+if (filtersDisclosure) {
+    const wideCatalog = window.matchMedia('(min-width: 1024px)');
+    const summary = filtersDisclosure.querySelector('summary');
+    function updateFilterLabel() {
+        summary.textContent = filtersDisclosure.open ? 'Скрыть фильтры' : 'Показать фильтры';
+    }
+    function syncFilters() {
+        const active = document.activeElement;
+        filtersDisclosure.open = wideCatalog.matches;
+        updateFilterLabel();
+        if (!wideCatalog.matches && filtersDisclosure.contains(active) && active !== summary) summary.focus();
+        if (wideCatalog.matches && active === summary) filtersDisclosure.querySelector('input')?.focus();
+    }
+    filtersDisclosure.classList.add('filters-disclosure--enhanced');
+    filtersDisclosure.addEventListener('toggle', updateFilterLabel);
+    filtersDisclosure.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && !wideCatalog.matches && filtersDisclosure.open) {
+            event.preventDefault();
+            filtersDisclosure.open = false;
+            updateFilterLabel();
+            summary.focus();
+        }
+    });
+    wideCatalog.addEventListener('change', syncFilters);
+    syncFilters();
+}
