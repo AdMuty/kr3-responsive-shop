@@ -26,10 +26,6 @@ img {
 }
 
 /* Шапка и меню */
-.site-header {
-    position: static;
-}
-
 .site-header__inner {
     padding: 16px;
 }
